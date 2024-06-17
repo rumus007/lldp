@@ -54,9 +54,14 @@ def create_dict(chassis, neighbor):
             temp_dict['sys_name'] = deep_get(checked_data,['name',0,'value'])
             temp_dict['sys_description'] = deep_get(checked_data,['descr',0,'value'])
             temp_dict['mgmt_ip'] = deep_get(checked_data,['mgmt-ip',0,'value'])
-            temp_dict['capability'] = {}
+            temp_dict['capability'] = {
+                'Bridge': False, 
+                'Router': False, 
+                'Wlan': False, 
+                'Station': False
+            }
             
-            if checked_data['capability']:
+            if ("capability" in checked_data) and checked_data['capability']:
                 for capabilities in checked_data['capability']:
                     temp_dict['capability'][capabilities['type']] = capabilities['enabled']
         
@@ -78,9 +83,14 @@ def create_dict(chassis, neighbor):
                 temp_dict['port_id'] = deep_get(port_info, ['id', 0, 'value'])
                 temp_dict['port_description'] = deep_get(port_info, ['descr', 0, 'value'])
                 temp_dict['port_ttl'] = deep_get(port_info, ['ttl', 0, 'value'])
-                temp_dict['capability'] = {}
+                temp_dict['capability'] = {
+                    'Bridge': False, 
+                    'Router': False, 
+                    'Wlan': False, 
+                    'Station': False
+                }
 
-                if chassis_info['capability']:
+                if ("capability" in chassis_info) and chassis_info['capability']:
                     for capabilities in chassis_info['capability']:
                         temp_dict['capability'][capabilities['type']] = capabilities['enabled']
 
