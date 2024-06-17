@@ -1,5 +1,6 @@
 import subprocess
 import json
+import http.client
 from helper import *
 
 def run_lldpcli_command(command):
@@ -92,6 +93,45 @@ def create_dict(chassis, neighbor):
         print(type(e))
         print(f"Error running command: {e}")
 
+def api_call(data):
+    """
+    API POST request to server to store the lldp data
+
+    Parameters:
+    - data: Dictionary that contains the data of chassis and neighbors 
+
+    Returns:
+    - HTTP response from the server
+    """
+    try:
+        # Code
+        host = "postman-echo.com"
+        endpoint = "/post"
+
+        post_data = json.dumps(data)
+
+        headers = {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+
+        connection = http.client.HTTPSConnection(host)
+
+        connection.request("POST", endpoint, body=post_data, headers=headers)
+
+        response = connection.getresponse()
+
+        data = response.read()
+
+        decode_data = data.decode("utf-8")
+
+        json_data = json.loads(decode_data)
+
+        connection.close()
+
+        return json_data
+    except Exception as e:
+        print(f"An error has occured in API call: {e}")
+
 # Command to run local chassis information
 command_chassis = "sudo lldpcli -f json0 show chassis"
 
@@ -106,5 +146,6 @@ output_neighbors = run_lldpcli_command(command_neighbors)
 if output_chassis:
     json_output_chassis = json.loads(output_chassis)
     json_output_neighbors = json.loads(output_neighbors)
-    test = create_dict(json_output_chassis, json_output_neighbors)
-    print(test)
+    api_request = create_dict(json_output_chassis, json_output_neighbors)
+    api_response = api_call(api_request)
+    print("here", api_response['data'])
