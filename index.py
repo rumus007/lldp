@@ -85,8 +85,8 @@ class LldpCollector:
                     temp_dict = {}
                     chassis_info = deep_get(neighbor, ['chassis', 0])
                     port_info = deep_get(neighbor, ['port', 0])
-                    temp_dict['neigbor_id'] = deep_get(chassis_info, ['id', 0, 'value'])
-                    temp_dict['neigbor_id_type'] = deep_get(chassis_info, ['id', 0, 'type'])
+                    temp_dict['neighbor_id'] = deep_get(chassis_info, ['id', 0, 'value'])
+                    temp_dict['neighbor_id_type'] = deep_get(chassis_info, ['id', 0, 'type'])
                     temp_dict['name'] = deep_get(chassis_info, ['name', 0, 'value'])
                     temp_dict['mgmt_ip'] = deep_get(chassis_info, ['mgmt-ip', 0, 'value'])
                     temp_dict['port_id_type'] = deep_get(port_info, ['id', 0, 'type'])
