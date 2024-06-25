@@ -160,7 +160,7 @@ class LldpCollector:
 
 
 # Example usage
-collector = LldpCollector("postman-echo.com", "/post")
+collector = LldpCollector("10.0.0.1:9000", "/lldp")
 response_data = collector.collect_and_send()
 
 if response_data:
