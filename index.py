@@ -124,7 +124,7 @@ class LldpCollector:
         """
         try:
             headers = {"Content-type": "application/json; charset=UTF-8"}
-            connection = http.client.HTTPSConnection(self.server_url)
+            connection = http.client.HTTPConnection(self.server_url)
 
             post_data = json.dumps(data)
             connection.request("POST", self.api_endpoint, body=post_data, headers=headers)
@@ -164,4 +164,4 @@ collector = LldpCollector("10.0.0.1:9000", "/lldp")
 response_data = collector.collect_and_send()
 
 if response_data:
-    print("API response data:", response_data['data'])
+    print("API response data:", response_data)
