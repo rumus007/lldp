@@ -1,6 +1,7 @@
 import subprocess
 import json
 import http.client
+import os
 from helper import *
 
 class LldpCollector:
@@ -159,6 +160,11 @@ class LldpCollector:
 
         return None
 
+
+# Load ENV
+load_env_file()
+print(os.getenv('GC_API_ENDPOINT'))
+print(os.getenv('GC_PORT'))
 
 # Example usage
 collector = LldpCollector("10.0.0.1:9000", "/lldp")

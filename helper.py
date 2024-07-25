@@ -1,3 +1,5 @@
+import os
+
 def deep_get(data, keys):
     """
     Safely get a value from a nested dictionary or list.
@@ -19,3 +21,18 @@ def deep_get(data, keys):
         if data is None:
             return None
     return data
+
+
+def load_env_file():
+    filepath = '.env'
+    with open(filepath) as f:
+        for line in f:
+            # Remove any leading/trailing whitespace
+            line = line.strip()
+            # Ignore lines that are comments or are empty
+            if not line or line.startswith('#'):
+                continue
+            # Split the line into key and value
+            key, value = line.split('=', 1)
+            # Set the environment variable
+            os.environ[key] = value
