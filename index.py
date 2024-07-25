@@ -163,11 +163,11 @@ class LldpCollector:
 
 # Load ENV
 load_env_file()
-print(os.getenv('GC_API_ENDPOINT'))
-print(os.getenv('GC_PORT'))
+endpoint = os.getenv('GC_API_ENDPOINT')
+port = os.getenv('GC_PORT')
 
 # Example usage
-collector = LldpCollector("10.0.0.1:9000", "/lldp")
+collector = LldpCollector(f"{endpoint}:{port}", "/lldp")
 response_data = collector.collect_and_send()
 
 if response_data:
